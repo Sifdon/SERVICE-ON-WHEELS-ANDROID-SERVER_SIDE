@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "178941427029",
+    "firebase_url": "https://stuclubproj.firebaseio.com",
+    "project_id": "stuclubproj",
+    "storage_bucket": "stuclubproj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178941427029:android:2a7fcfa7e4947e84",
+        "android_client_info": {
+          "package_name": "e.sanjaaykishore.mech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178941427029-8ordnqh685s8ie3jlrqc86s8bp075pnb.apps.googleusercontent.com",
+          "client_type": 3        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4CYXVdFV_pVPLuqdDNJ4QTWJiHhvzlfc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

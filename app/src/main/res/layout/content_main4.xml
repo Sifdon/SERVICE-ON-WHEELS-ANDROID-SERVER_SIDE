@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="e.sanjaaykishore.mech.Main4Activity"
+    tools:showIn="@layout/app_bar_main4">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <io.ghyeok.stickyswitch.widget.StickySwitch
+        android:id="@+id/switchavai"
+        android:layout_width="89dp"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="21dp"
+        app:iconPadding="2dp"
+        app:iconSize="32dp"
+        app:leftIcon="@drawable/ic_add_location_black_24dp"
+        app:rightIcon="@drawable/ic_location_off_black_24dp"
+        app:selectedTextSize="14sp"
+        app:sliderBackgroundColor="@color/colorStickyBg"
+        app:switchColor="@color/colorSticky"
+        app:textColor="#fff"
+        app:textSize="14sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="34dp" />
+
+</RelativeLayout>
+
+
+
+

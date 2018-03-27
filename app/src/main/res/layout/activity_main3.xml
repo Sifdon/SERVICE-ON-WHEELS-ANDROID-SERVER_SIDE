@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF8DC"
+    android:fontFamily="@font/advent_pro_medium"
+    tools:context="e.sanjaaykishore.mech.Main3Activity">
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sname"
+        android:layout_below="@+id/sname"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:fontFamily="@font/advent_pro_medium"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/name"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="33dp"
+        android:ems="10"
+        android:fontFamily="@font/advent_pro_medium"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/phone"
+        android:layout_below="@+id/phone"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:fontFamily="@font/advent_pro_medium"
+        android:inputType="textPostalAddress" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/addr"
+        android:layout_below="@+id/addr"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:fontFamily="@font/advent_pro_medium"
+        android:inputType="textEmailAddress" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="33dp"
+        android:background="#D2B48C"
+        android:fontFamily="@font/advent_pro_medium"
+        android:onClick="sub"
+        android:text="Submit"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="55px" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/name"
+        android:layout_alignBottom="@+id/name"
+        android:layout_alignStart="@+id/textView6"
+        android:fontFamily="@font/advent_pro_medium"
+        android:text="Name"
+        android:textColor="#000000"
+        android:textSize="55px" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/phone"
+        android:layout_alignBottom="@+id/phone"
+        android:layout_alignStart="@+id/textView"
+        android:fontFamily="@font/advent_pro_medium"
+        android:text="Phone No"
+        android:textColor="#000000"
+        android:textSize="55px" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/email"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginBottom="9dp"
+        android:fontFamily="@font/advent_pro_medium"
+        android:text="Address"
+        android:textColor="#000000"
+        android:textSize="55px" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/email"
+        android:layout_alignBottom="@+id/email"
+        android:layout_alignEnd="@+id/textView4"
+        android:fontFamily="@font/advent_pro_medium"
+        android:text="Email Id"
+        android:textColor="#000000"
+        android:textSize="55px" />
+
+    <EditText
+        android:id="@+id/sname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button"
+        android:layout_below="@+id/textView7"
+        android:ems="10"
+        android:fontFamily="@font/advent_pro_medium"
+        android:inputType="textPersonName"
+        android:textColorLink="@android:color/black" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/name"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="23dp"
+        android:fontFamily="@font/advent_pro_medium"
+        android:text="Shop Name"
+        android:textColor="#000000"
+        android:textSize="55px" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/textView6"
+        android:fontFamily="@font/advent_pro_medium"
+        android:text="Registration"
+        android:textColor="#000000"
+        android:textSize="75px" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/advent_pro_medium"
+        android:textSize="55px"
+        android:textColor="#000000"
+        android:text="Password" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button"
+        android:layout_below="@+id/textView5"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+</RelativeLayout>

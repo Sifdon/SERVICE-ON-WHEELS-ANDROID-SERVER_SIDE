@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    android:fontFamily="@font/advent_pro_medium"
+    tools:context="e.sanjaaykishore.mech.MainActivity">
+
+
+    <EditText
+        android:id="@+id/usr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/reg"
+        android:layout_below="@+id/imageView2"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:fontFamily="@font/advent_pro_medium"
+        android:inputType="textEmailAddress"
+        android:textColorLink="@android:color/black" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignStart="@+id/usr"
+        android:ems="10"
+        android:fontFamily="@font/advent_pro_medium"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/e"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/usr"
+        android:layout_alignBottom="@+id/usr"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="19dp"
+        android:fontFamily="@font/advent_pro_medium"
+        android:text="Username"
+        android:textColor="#000000"
+        android:textSize="55px" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/e"
+        android:layout_below="@+id/imageView2"
+        android:layout_marginTop="99dp"
+        android:fontFamily="@font/advent_pro_medium"
+        android:hint="Password"
+        android:text="Password"
+        android:textColor="#000000"
+        android:textSize="55px" />
+
+    <Button
+        android:id="@+id/log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/advent_pro_medium"
+        android:onClick="login"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/log"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:fontFamily="@font/advent_pro_medium"
+        android:onClick="register"
+        android:text="Not Registered? Signup"
+        android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="230dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/icon1" />
+
+
+</RelativeLayout>
