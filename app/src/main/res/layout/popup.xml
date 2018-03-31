@@ -30,6 +30,7 @@
             android:src="@drawable/ic_person_add_black_24dp" />
 
         <TextView
+            android:id="@+id/name1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -39,6 +40,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/phone1"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

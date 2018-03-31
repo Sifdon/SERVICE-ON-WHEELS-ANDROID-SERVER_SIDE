@@ -59,13 +59,25 @@
         android:textColor="#000000"
         android:textSize="55px" />
 
+    <CheckBox
+        android:id="@+id/shp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/pass"
+        android:layout_marginTop="13dp"
+        android:layout_weight="1"
+        android:text="Show Password"
+        android:textColor="#000"
+        android:textSize="14dp" />
+
     <Button
         android:id="@+id/log"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pass"
+        android:layout_below="@+id/shp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="21dp"
         android:background="@color/colorPrimaryDark"
         android:fontFamily="@font/advent_pro_medium"
         android:onClick="login"
@@ -83,6 +95,18 @@
         android:fontFamily="@font/advent_pro_medium"
         android:onClick="register"
         android:text="Not Registered? Signup"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:fontFamily="@font/advent_pro_medium"
+        android:text="Forget Password"
+        android:onClick="forget"
         android:textColor="#000000" />
 
     <ImageView

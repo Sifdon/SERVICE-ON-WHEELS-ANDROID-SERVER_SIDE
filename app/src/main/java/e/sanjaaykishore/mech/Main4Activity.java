@@ -10,11 +10,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -61,6 +64,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import io.ghyeok.stickyswitch.widget.StickySwitch;
@@ -82,6 +86,7 @@ public class Main4Activity extends AppCompatActivity
     private StickySwitch stickySwitch;
     LatLng preLocation;
     private boolean logedout = false;
+    TextToSpeech textToSpeech;
     FirebaseAuth fauth = FirebaseAuth.getInstance();
     private String CustAllocId = "";
     private int sel=1;
@@ -96,40 +101,68 @@ public class Main4Activity extends AppCompatActivity
         setContentView(R.layout.activity_main4);
         polylines = new ArrayList<>();
         myDialog = new Dialog(this);
+        //showpop();
 
         NavListen();
+        final String mech_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         stickySwitch = (StickySwitch)findViewById(R.id.switchavai);
+
+        textToSpeech=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i!=TextToSpeech.ERROR)
+                {
+                    textToSpeech.setLanguage(Locale.ENGLISH);
+                }
+
+            }
+        });
+
         stickySwitch.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
             @Override
             public void onSelectedChange(StickySwitch.Direction direction, String s) {
                 if(sel==1)
                 {
                     switchToAvailable();
-                    Toast.makeText(Main4Activity.this, "You are now avalilable for service", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Main4Activity.this, "You are now available for service", Toast.LENGTH_SHORT).show();
+                    speakToast("You are now available for service");
                     sel=3;
                 }
                 else
                 {
-                    if(FirebaseAuth.getInstance().getCurrentUser().getUid()!=null&&FirebaseDatabase.getInstance().getReference().child("AvaillableMechanic")!=null) {
-                        removeGeo();
-                    }
-                    removeGeo1();
-
-
-
+                    removeGeo();
                     Toast.makeText(Main4Activity.this, "You are now disabled from service", Toast.LENGTH_SHORT).show();
+                    speakToast("You are now disabled from service");
                     sel=1;
                 }
             }
         });
+        String avaiid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if(FirebaseDatabase.getInstance().getReference().child("avaid")!=null && stickySwitch.isSelected())
+        {
+            stickySwitch.setSelected(true);
+            sel=3;
+            Toast.makeText(this, "Entered but not worked", Toast.LENGTH_SHORT).show();
+            speakToast("Entered but not worked");
+        }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                showpop();
+
+                if(TextUtils.isEmpty(CustAllocId)) {
+                    Snackbar.make(view, "No Customer Allocataed......", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    speakToast("No Customer Allocataed");
+                }
+                else {
+                    Snackbar.make(view, "Customer Allocataed......", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    speakToast("Customer Allocataed");
+                    showpop();
+                }
+
             }
         });
 
@@ -143,7 +176,14 @@ public class Main4Activity extends AppCompatActivity
 
 
     }
+
+    public void speakToast(String text)
+    {
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
     private boolean firstoc=true;
+
 
     protected void getAllocCustomerId() {
         String mech_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -153,15 +193,7 @@ public class Main4Activity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     CustAllocId = dataSnapshot.getValue().toString();
-                    try {
-                        Thread.sleep(4000);
-                        getBookedCustomerPickLocation();
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-
+                    getBookedCustomerPickLocation();
                 }
                 else
                 {
@@ -175,6 +207,7 @@ public class Main4Activity extends AppCompatActivity
                     }
                     if(!firstoc) {
                         Toast.makeText(Main4Activity.this, "Customer Cancelled The Request..", Toast.LENGTH_SHORT).show();
+                        speakToast("Customer Cancelled The Request");
                         firstoc=false;
                     }
                 }
@@ -186,11 +219,12 @@ public class Main4Activity extends AppCompatActivity
     }
     private void showpop()
     {
-        TextView txtclose;
+        final TextView txtclose,nametxt,phonetxt;
         Button btnCancel,btnFinish;
         myDialog.setContentView(R.layout.popup);
         txtclose =(TextView) myDialog.findViewById(R.id.txtclose);
-        txtclose.setText("M");
+        nametxt =(TextView) myDialog.findViewById(R.id.name1);
+        phonetxt =(TextView) myDialog.findViewById(R.id.phone1);
         btnCancel = (Button) myDialog.findViewById(R.id.btncancel);
         btnFinish = (Button) myDialog.findViewById(R.id.btnfinish);
         txtclose.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +233,52 @@ public class Main4Activity extends AppCompatActivity
                 myDialog.dismiss();
             }
         });
+
+        String allcustid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference refobj = FirebaseDatabase.getInstance().getReference().child("Users").child(CustAllocId);
+        refobj.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               if(dataSnapshot.exists())
+               {
+                   String name=dataSnapshot.child("Name").getValue(String.class);
+                   String phone=dataSnapshot.child("Phone Number").getValue(String.class);
+                   nametxt.setText(name);
+                   phonetxt.setText(phone);
+
+               }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String mech_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DatabaseReference mechRef = FirebaseDatabase.getInstance().getReference().child("Mechanic").child(mech_id).child("custAllocId");
+                mechRef.removeValue();
+                Toast.makeText(Main4Activity.this, "Customer Request Cancelled", Toast.LENGTH_SHORT).show();
+                speakToast("Customer Request Cancelled");
+            }
+        });
+
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String mech_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DatabaseReference mechRef = FirebaseDatabase.getInstance().getReference().child("Mechanic").child(mech_id).child("custAllocId");
+                mechRef.removeValue();
+                Toast.makeText(Main4Activity.this, "Customer Request is Over", Toast.LENGTH_SHORT).show();
+                speakToast("Customer Request is Over");
+            }
+        });
+
+
+
+
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
     }
@@ -227,6 +307,7 @@ public class Main4Activity extends AppCompatActivity
 
                     remMark=mMap.addMarker(new MarkerOptions().position(pickLoc).title("Customer"));
                         routeMaking(pickLoc);
+                    showpop();
                 }
             }
 
@@ -301,8 +382,9 @@ public void onBackPressed() {
 public void onConnected(@Nullable Bundle bundle) {
         request = new LocationRequest().create();
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        request.setInterval(3000);
-        request.setFastestInterval(3000);
+        //new addtes 3000
+        request.setInterval(1000);
+        request.setFastestInterval(1000);
 
         }
 
@@ -346,33 +428,31 @@ public void onLocationChanged(Location location) {
 
          //MarkerOptions options = new MarkerOptions();
 
-
         String userid = fauth.getInstance().getCurrentUser().getUid();
-
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("AvailableMechanic");
-      DatabaseReference referenceBook = FirebaseDatabase.getInstance().getReference("BookedMechanics");
-    GeoFire geo = new GeoFire(reference);
-    GeoFire geoBook = new GeoFire(referenceBook);
+        DatabaseReference referenceBook = FirebaseDatabase.getInstance().getReference("BookedMechanics");
+        GeoFire geo = new GeoFire(reference);
+        GeoFire geoBook = new GeoFire(referenceBook);
 
-    switch (CustAllocId) {
+    switch (CustAllocId)
+    {
         case "":
             geoBook.removeLocation(userid);
-            geo.setLocation(userid, new GeoLocation(location.getLatitude(), location.getLongitude()));
+            geo.setLocation(userid,new GeoLocation(location.getLatitude(),location.getLongitude()));
             break;
         default:
             geo.removeLocation(userid);
-            geoBook.setLocation(userid, new GeoLocation(location.getLatitude(), location.getLongitude()));
+            geoBook.setLocation(userid,new GeoLocation(location.getLatitude(),location.getLongitude()));
             break;
     }
-}
 
 
 
 
 
+        }
 
-
-@Override
+/*@Override
 protected void onStop() {
         super.onStop();
 
@@ -381,7 +461,7 @@ protected void onStop() {
         removeGeo();
         }
 
-        }
+        }*/
 
 protected  void removeGeo()
         {
@@ -392,24 +472,8 @@ protected  void removeGeo()
 
         GeoFire geoFire = new GeoFire(ref);
         geoFire.removeLocation(userId);
-
-
         }
-    protected  void removeGeo1()
-    {
-        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("BookedMechanics");
-
-
-        GeoFire geoFire = new GeoFire(ref);
-        geoFire.removeLocation(userId);
-
-
-    }
-
-
-        @Override
+@Override
 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId())
         {
@@ -422,35 +486,30 @@ public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         FirebaseAuth.getInstance().signOut();
         Intent i = new Intent(Main4Activity.this,MainActivity.class);
         startActivity(i);
-
+        //new line
+        //finish();
+        //return true;
+        //new line end
         }
         else
         {
         Toast.makeText(this, "USER ALREADY LOGGED OUT", Toast.LENGTH_SHORT).show();
+        speakToast("USER ALREADY LOGGED OUT");
         }
         break;
-
             case R.id.nav_camera:
-                finish();
                 startActivity(getIntent());
-
-
-
-
+                break;
 
         }
-
-
-
         return true;
-
-
-
-}
+        }
 
     @Override
     protected void onStart() {
         super.onStart();
+        //showpop();
+
 
 }
 
@@ -466,8 +525,7 @@ public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     @Override
     public void onRoutingStart() {
 
-        Toast.makeText(this, "DRAWING SHORTEST ROUTE", Toast.LENGTH_SHORT).show();
-}
+    }
 
     @Override
     public void onRoutingSuccess(ArrayList<Route> arrayList, int shortestrouteIndex) {
@@ -512,5 +570,14 @@ public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         polylines.clear();
     }
 
+    @Override
+    protected void onDestroy() {
+        if(textToSpeech!=null)
+        {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
+    }
 
 }

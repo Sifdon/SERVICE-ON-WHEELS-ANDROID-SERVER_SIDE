@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF8DC"
+    android:padding="16dp"
+    android:background="@drawable/bg1"
     android:fontFamily="@font/advent_pro_medium"
     tools:context="e.sanjaaykishore.mech.Main3Activity">
 
@@ -57,13 +58,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="33dp"
-        android:background="#D2B48C"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimaryDark"
         android:fontFamily="@font/advent_pro_medium"
         android:onClick="sub"
+        android:padding="10dp"
         android:text="Submit"
         android:textAllCaps="false"
-        android:textColor="#000000"
+        android:textColor="#fff"
         android:textSize="55px" />
 
     <TextView
@@ -108,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/email"
         android:layout_alignBottom="@+id/email"
-        android:layout_alignEnd="@+id/textView4"
+        android:layout_alignParentStart="true"
         android:fontFamily="@font/advent_pro_medium"
         android:text="Email Id"
         android:textColor="#000000"
@@ -131,7 +133,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/name"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="23dp"
         android:fontFamily="@font/advent_pro_medium"
         android:text="Shop Name"
         android:textColor="#000000"
@@ -142,9 +143,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@+id/textView6"
+        android:layout_toEndOf="@+id/textView4"
         android:fontFamily="@font/advent_pro_medium"
         android:text="Registration"
         android:textColor="#000000"
@@ -166,8 +165,8 @@
         android:id="@+id/pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/button"
-        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/email"
+        android:layout_alignTop="@+id/textView8"
         android:ems="10"
         android:inputType="textPassword" />
 

@@ -6,13 +6,13 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_refresh_black_24dp"
-            android:title="REFRESH" />
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Map" />
+
         <item
             android:id="@+id/nav_send"
-            android:icon="@drawable/ic_cancel_black_24dp"
-            android:title="LOGOUT" />
-
+            android:icon="@drawable/ic_menu_send"
+            android:title="Log Out" />
     </group>
 
 
